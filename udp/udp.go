@@ -1,5 +1,12 @@
 package udp
 
+import "log"
+
+var (
+	Logn = log.Println
+	Logf = log.Printf
+)
+
 type UdpInfo struct {
 	TargetIP string
 	Port     int

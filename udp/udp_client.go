@@ -1,11 +1,8 @@
 package udp
 
 import (
-	"log"
 	"net"
 )
-
-var logn = log.Println
 
 func (ui *UdpInfo) Dialer() bool {
 
@@ -16,20 +13,28 @@ func (ui *UdpInfo) Dialer() bool {
 	})
 
 	if err != nil {
-		logn("Connect to udp server failed,err:", err)
+		Logn("Connect to udp server failed,err:", err)
 		return false
 	} else {
-		logn("Connect to udp server success!!")
+		Logn("Connect to udp server success!!")
 	}
 
 	defer connUdp.Close()
 
-	idx, err := connUdp.Write([]byte("udp test packet!!!"))
+	idx, err := connUdp.Write([]byte("Sent message by client"))
 	if err != nil {
-		logn("Send data failed,err:", err, "idx:", idx)
+		Logn("Send data failed,err:", err, "idx:", idx)
 		return false
 	} else {
-		logn("Send data success!!!")
+		Logn("Send data success!!!")
 	}
+
+	p := make([]byte, 1024)
+	nn, err := connUdp.Read(p)
+	if err != nil {
+		Logf("Read err %v\n", err)
+	}
+	Logf("%v\n", string(p[:nn]))
+
 	return true
 }

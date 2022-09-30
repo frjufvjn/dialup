@@ -1,22 +1,19 @@
 package tcp
 
 import (
-	"fmt"
 	"io"
 	"net"
 	"strconv"
 )
-
-var prn = fmt.Println
 
 func (ti *TcpInfo) Listen() {
 	port := ":" + strconv.Itoa(ti.Port)
 
 	l, err := net.Listen("tcp", port)
 	if err != nil {
-		prn("Failed to Listen : ", err)
+		Logn("Failed to Listen : ", err)
 	} else {
-		prn("success tcp listen", port)
+		Logn("success tcp listen", port)
 	}
 
 	defer l.Close()
@@ -24,7 +21,7 @@ func (ti *TcpInfo) Listen() {
 	for {
 		conn, err := l.Accept()
 		if err != nil {
-			prn("Failed to Accept : ", err)
+			Logn("Failed to Accept : ", err)
 			continue
 		}
 
@@ -39,14 +36,14 @@ func tcpHandler(conn net.Conn) {
 		n, err := conn.Read(recv)
 		if err != nil {
 			if err == io.EOF {
-				prn("connection is closed from client : ", conn.RemoteAddr().String())
+				Logn("connection is closed from client : ", conn.RemoteAddr().String())
 			}
-			prn("Failed to receive data : ", err)
+			Logn("Failed to receive data : ", err)
 			break
 		}
 
 		if n > 0 {
-			prn(string(recv[:n]))
+			Logn(string(recv[:n]))
 			conn.Write(recv[:n])
 		}
 	}

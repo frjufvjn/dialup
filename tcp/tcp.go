@@ -1,5 +1,12 @@
 package tcp
 
+import "log"
+
+var (
+	Logn = log.Println
+	Logf = log.Printf
+)
+
 type TcpInfo struct {
 	IP      string
 	Port    int

@@ -1,8 +1,6 @@
 package udp
 
 import (
-	"fmt"
-	"log"
 	"net"
 )
 
@@ -15,9 +13,9 @@ func (ui *UdpInfo) Listen() {
 	})
 
 	if err != nil {
-		log.Fatal("UDP Listen failed,", err)
+		Logn("UDP Listen failed,", err)
 	} else {
-		log.Println("UDP Listen success port:", listenPort)
+		Logn("UDP Listen success port:", listenPort)
 	}
 	defer udpConn.Close()
 
@@ -25,15 +23,15 @@ func (ui *UdpInfo) Listen() {
 		var data [1024]byte
 		n, addr, err := udpConn.ReadFromUDP(data[:])
 		if err != nil {
-			log.Printf("Read from udp server:%s failed,err:%s", addr, err)
+			Logf("Read from udp server:%s failed,err:%s", addr, err)
 			break
 		}
 
 		go func() {
-			fmt.Printf("Addr:%s, data:[%v], count:[%d]\n", addr, string(data[:n]), n)
-			_, err := udpConn.WriteToUDP([]byte("msg recived."), addr)
+			Logf("Addr:%s, data:[%v], count:[%d]\n", addr, string(data[:n]), n)
+			_, err := udpConn.WriteToUDP([]byte("Sent reply message by server"), addr)
 			if err != nil {
-				fmt.Println("write to udp server failed,err:", err)
+				Logn("write to udp server failed,err:", err)
 			}
 		}()
 	}
