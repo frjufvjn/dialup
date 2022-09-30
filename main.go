@@ -50,16 +50,16 @@ func init() {
 
 func main() {
 	if *isTcp {
-		tcpFeature := &tcp.TcpInfo{
+		tcpFeature := &tcp.Config{
 			IP:      *targetIP,
 			Port:    *portNo,
 			Timeout: *timeout,
 		}
 		tcpFeature.Run(*isServer)
 	} else {
-		udpFeature := &udp.UdpInfo{
-			TargetIP: *targetIP,
-			Port:     *portNo,
+		udpFeature := &udp.Config{
+			IP:   *targetIP,
+			Port: *portNo,
 		}
 		udpFeature.Run(*isServer)
 	}

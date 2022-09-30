@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func (ti *TcpInfo) Listen() {
+func (ti *Config) Listen() {
 	port := ":" + strconv.Itoa(ti.Port)
 
 	l, err := net.Listen("tcp", port)

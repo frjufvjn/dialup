@@ -7,12 +7,12 @@ var (
 	Logf = log.Printf
 )
 
-type UdpInfo struct {
-	TargetIP string
-	Port     int
+type Config struct {
+	IP   string
+	Port int
 }
 
-func (ui *UdpInfo) Run(isServer bool) {
+func (ui *Config) Run(isServer bool) {
 	if isServer {
 		ui.Listen()
 	} else {

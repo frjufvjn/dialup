@@ -4,9 +4,9 @@ import (
 	"net"
 )
 
-func (ui *UdpInfo) Dialer() bool {
+func (ui *Config) Dialer() bool {
 
-	parsedUdpIp := net.ParseIP(ui.TargetIP)
+	parsedUdpIp := net.ParseIP(ui.IP)
 	connUdp, err := net.DialUDP("udp", nil, &net.UDPAddr{
 		IP:   parsedUdpIp,
 		Port: ui.Port,

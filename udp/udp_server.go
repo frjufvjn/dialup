@@ -4,7 +4,7 @@ import (
 	"net"
 )
 
-func (ui *UdpInfo) Listen() {
+func (ui *Config) Listen() {
 	listenPort := ui.Port
 	//   UDP
 	udpConn, err := net.ListenUDP("udp", &net.UDPAddr{

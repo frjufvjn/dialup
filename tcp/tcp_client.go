@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func (ti *TcpInfo) Dialer() bool {
+func (ti *Config) Dialer() bool {
 	d := net.Dialer{Timeout: time.Duration(ti.Timeout) * time.Second}
 	conn, err := d.Dial("tcp", ti.IP+":"+strconv.Itoa(ti.Port))
 

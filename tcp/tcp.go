@@ -7,13 +7,13 @@ var (
 	Logf = log.Printf
 )
 
-type TcpInfo struct {
+type Config struct {
 	IP      string
 	Port    int
 	Timeout int
 }
 
-func (ti *TcpInfo) Run(isServer bool) {
+func (ti *Config) Run(isServer bool) {
 	if isServer {
 		ti.Listen()
 	} else {
