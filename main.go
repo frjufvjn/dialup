@@ -49,6 +49,7 @@ func init() {
 }
 
 func main() {
+	prn("local ip address:", udp.GetLocalIpAddress())
 	if *isTcp {
 		tcpFeature := &tcp.Config{
 			IP:      *targetIP,
