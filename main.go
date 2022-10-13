@@ -9,13 +9,17 @@ import (
 )
 
 var (
-	prn      = fmt.Println
-	prf      = fmt.Printf
-	targetIP = flag.String("ip", "localhost", "[클라이언트용] 타겟 IP")
-	portNo   = flag.Int("port", 22, "PORT번호")
-	timeout  = flag.Int("timeout", 3, "[클라이언트용] 타임아웃 (second)")
-	isTcp    = flag.Bool("tcp", true, "TCP인지 UDP인지")
-	isServer = flag.Bool("server", false, "서버, 클라이언트 여부")
+	prn        = fmt.Println
+	prf        = fmt.Printf
+	targetIP   = flag.String("ip", "localhost", "[클라이언트용] 타겟 IP")
+	portNo     = flag.Int("port", 22, "PORT번호")
+	timeout    = flag.Int("timeout", 3, "[클라이언트용] 타임아웃 (second)")
+	isTcp      = flag.Bool("tcp", true, "TCP인지 UDP인지")
+	isServer   = flag.Bool("server", false, "서버, 클라이언트 여부")
+	appVersion = ""
+	buildTime  = ""
+	gitCommit  = ""
+	gitRef     = ""
 )
 
 const (
@@ -49,6 +53,7 @@ func init() {
 }
 
 func main() {
+	printVersion()
 	prn("local ip address:", udp.GetLocalIpAddress())
 	if *isTcp {
 		tcpFeature := &tcp.Config{
@@ -64,4 +69,8 @@ func main() {
 		}
 		udpFeature.Run(*isServer)
 	}
+}
+
+func printVersion() {
+	prf("dialup version info: appVersion:%s, buildTime:%s, gitCommit:%s, gitRef:%s", appVersion, buildTime, gitCommit, gitRef)
 }
