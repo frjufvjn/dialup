@@ -72,5 +72,5 @@ func main() {
 }
 
 func printVersion() {
-	prf("dialup version info: appVersion:%s, buildTime:%s, gitCommit:%s, gitRef:%s", appVersion, buildTime, gitCommit, gitRef)
+	prf("dialup version info: appVersion:%s, buildTime:%s, gitCommit:%s, gitRef:%s\n", appVersion, buildTime, gitCommit, gitRef)
 }
