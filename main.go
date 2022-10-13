@@ -9,17 +9,18 @@ import (
 )
 
 var (
-	prn        = fmt.Println
-	prf        = fmt.Printf
-	targetIP   = flag.String("ip", "localhost", "[클라이언트용] 타겟 IP")
-	portNo     = flag.Int("port", 22, "PORT번호")
-	timeout    = flag.Int("timeout", 3, "[클라이언트용] 타임아웃 (second)")
-	isTcp      = flag.Bool("tcp", true, "TCP인지 UDP인지")
-	isServer   = flag.Bool("server", false, "서버, 클라이언트 여부")
-	appVersion = ""
-	buildTime  = ""
-	gitCommit  = ""
-	gitRef     = ""
+	prn           = fmt.Println
+	prf           = fmt.Printf
+	targetIP      = flag.String("ip", "localhost", "[클라이언트용] 타겟 IP")
+	portNo        = flag.Int("port", 22, "PORT번호")
+	timeout       = flag.Int("timeout", 3, "[클라이언트용] 타임아웃 (second)")
+	isTcp         = flag.Bool("tcp", true, "TCP인지 UDP인지")
+	isServer      = flag.Bool("server", false, "서버, 클라이언트 여부")
+	isVersionView = flag.Bool("version", false, "버전 프린트")
+	appVersion    = ""
+	buildTime     = ""
+	gitCommit     = ""
+	gitRef        = ""
 )
 
 const (
@@ -53,7 +54,9 @@ func init() {
 }
 
 func main() {
-	printVersion()
+	if printVersion() {
+		return
+	}
 	prn("local ip address:", udp.GetLocalIpAddress())
 	if *isTcp {
 		tcpFeature := &tcp.Config{
@@ -71,6 +74,20 @@ func main() {
 	}
 }
 
-func printVersion() {
-	prf("dialup version info: appVersion:%s, buildTime:%s, gitCommit:%s, gitRef:%s\n", appVersion, buildTime, gitCommit, gitRef)
+func printVersion() bool {
+	if isFlagInputed("version") || *isVersionView {
+		prf("dialup version info: appVersion:%s, buildTime:%s, gitCommit:%s, gitRef:%s\n", appVersion, buildTime, gitCommit, gitRef)
+		return true
+	}
+	return false
+}
+
+func isFlagInputed(name string) bool {
+	found := false
+	flag.Visit(func(f *flag.Flag) {
+		if f.Name == name {
+			found = true
+		}
+	})
+	return found
 }
