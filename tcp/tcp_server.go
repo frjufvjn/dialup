@@ -43,7 +43,7 @@ func tcpHandler(conn net.Conn) {
 		}
 
 		if n > 0 {
-			Logn(string(recv[:n]))
+			Logn("recv:", string(recv[:n]))
 			conn.Write(recv[:n])
 		}
 	}
