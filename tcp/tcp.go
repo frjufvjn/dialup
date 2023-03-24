@@ -21,6 +21,6 @@ func (ti *Config) Run(isServer bool) {
 	}
 }
 
-func (ti *Config) Dial() bool {
+func (ti *Config) Dial() (bool, error) {
 	return ti.Dialer()
 }
